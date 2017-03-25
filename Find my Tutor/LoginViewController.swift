@@ -68,19 +68,21 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             (succeeded: Bool, error:Error?) -> Void in
             if succeeded {
                 print("Created a", LoginViewController.currentUserDetail!, " user")
-                let alertController = UIAlertController(title: "WELCOME", message: "Welcome to Chat", preferredStyle: .alert)
                 
                 
-                let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
-                    
-                }
-                alertController.addAction(cancelAction)
-                
-                
-                self.present(alertController, animated: true) {
-                    // optional code for what happens after the alert controller has finished presenting
-                }
-                self.performSegue(withIdentifier: "loginSegue", sender: nil)
+//                let alertController = UIAlertController(title: "WELCOME", message: "Welcome to Chat", preferredStyle: .alert)
+//                
+//                
+//                let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
+//                    
+//                }
+//                alertController.addAction(cancelAction)
+//                
+//                
+//                self.present(alertController, animated: true) {
+//                    // optional code for what happens after the alert controller has finished presenting
+//                }
+//                self.performSegue(withIdentifier: "loginSegue", sender: nil)
             }
             else{
                 print("Error is : ",error?.localizedDescription)
