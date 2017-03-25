@@ -10,17 +10,24 @@ import UIKit
 import Parse
 
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
     @IBOutlet weak var userNameLabel: UITextField!
     
+    @IBOutlet weak var choiceLabel: UIPickerView!
     @IBOutlet weak var passWordLabel: UITextField!
+    var choiceIndex = 0
+    
+    var choices = ["Student","Tutor"]
     
     static var currentUserDetail: String?
-    
+    var userNameTemp: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        choiceLabel.delegate = self
+        choiceLabel.dataSource = self
+        
 
         // Do any additional setup after loading the view.
     }
@@ -30,18 +37,37 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return choices[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return choices.count
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
 
-    @IBAction func studentSignUp(_ sender: Any) {
+    @IBAction func onSignUp(_ sender: Any) {
         let newUser = PFUser()
-        newUser.username = userNameLabel.text
+        if choiceIndex == 0{
+            LoginViewController.currentUserDetail = "Student"
+            userNameTemp = "student_" + userNameLabel.text!
+            
+        }
+        else{
+            LoginViewController.currentUserDetail = "Tutor"
+            userNameTemp = "tutor_" + userNameLabel.text!
+            
+        }
+        newUser.username = userNameTemp
         newUser.password = passWordLabel.text
-       
-        newUser.email = "student@student.com"
-        //newUser.isLinked(withAuthType: "Student")
         newUser.signUpInBackground {
             (succeeded: Bool, error:Error?) -> Void in
             if succeeded {
-                print("Created a student user")
+                print("Created a", LoginViewController.currentUserDetail!, " user")
                 let alertController = UIAlertController(title: "WELCOME", message: "Welcome to Chat", preferredStyle: .alert)
                 
                 
@@ -61,75 +87,36 @@ class LoginViewController: UIViewController {
             }
         }
         
+        
+        
+        
+        
     }
+    
+    
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        choiceIndex = row
+    }
+    
+    
     
     @IBOutlet weak var tutorSignUp: UIButton!
     
     
-    @IBAction func tutorSignUp(_ sender: Any) {
-        let newUser = PFUser()
-        newUser.username = userNameLabel.text
-        newUser.password = passWordLabel.text
-        newUser.email = "tutor@tutor.com"
-        newUser.signUpInBackground {
-            (succeeded: Bool, error:Error?) -> Void in
-            if succeeded {
-                print("Created a tutor user")
-                let alertController = UIAlertController(title: "WELCOME", message: "Welcome to Chat", preferredStyle: .alert)
-                
-                
-                let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
-                    
-                }
-                alertController.addAction(cancelAction)
-                
-                
-                self.present(alertController, animated: true) {
-                    // optional code for what happens after the alert controller has finished presenting
-                }
-                self.performSegue(withIdentifier: "loginSegue", sender: nil)
-            }
-            else{
-                print("Error is : ",error?.localizedDescription)
-            }
-        }
-
-        
-        
-        
-    }
-    
     
     
     @IBAction func onSignIn(_ sender: Any) {
-        PFUser.logInWithUsername(inBackground: userNameLabel.text!, password: passWordLabel.text!){
+        if choiceIndex == 0{
+            userNameTemp = "student_" + userNameLabel.text!
+        }
+        else{
+            userNameTemp = "tutor_" + userNameLabel.text!
+        }
+        PFUser.logInWithUsername(inBackground: userNameTemp!, password: passWordLabel.text!){
             user, error in
             if user != nil{
                 print("User logined")
-                var currentUser = user?.email as String!
-                
-                if let currentUser = currentUser{
-                    if(currentUser as String! == "student@student.com"){
-                        LoginViewController.currentUserDetail = "Student"
-                        print("Student has logged in")
-                    }
-                    else{
-                        LoginViewController.currentUserDetail = "Tutor"
-
-                        print("Tutor has logged in")
-                    }
-                    
-                }
-                print("Student email is : ", user?.email)
-                //PFUser.isLinked("Student")
-                
-////                var currentUser = PFUser.accessibilityHint()
-//                print("User accessibility is : ", PFUser.accessibilityHint())
-////                if currentUser as String! == "Student"{
-////                    
-////                    print("Student logged in")
-////                }
-//                
                 self.performSegue(withIdentifier: "loginSegue", sender: nil)
             }
             else{

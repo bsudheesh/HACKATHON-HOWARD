@@ -17,6 +17,7 @@
 		FED756EB1E85F59400508B87 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED756EA1E85F59400508B87 /* ProfileViewController.swift */; };
 		FED756ED1E86023400508B87 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FED756EC1E86023400508B87 /* CoreLocation.framework */; };
 		FED756EF1E86124500508B87 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED756EE1E86124500508B87 /* Student.swift */; };
+		FED756F11E861AFA00508B87 /* Tutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED756F01E861AFA00508B87 /* Tutor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		FED756EA1E85F59400508B87 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		FED756EC1E86023400508B87 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		FED756EE1E86124500508B87 /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
+		FED756F01E861AFA00508B87 /* Tutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tutor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				FED756EE1E86124500508B87 /* Student.swift */,
+				FED756F01E861AFA00508B87 /* Tutor.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				FED756E91E85F3D400508B87 /* MapViewController.swift in Sources */,
 				FED756EB1E85F59400508B87 /* ProfileViewController.swift in Sources */,
 				FED756EF1E86124500508B87 /* Student.swift in Sources */,
+				FED756F11E861AFA00508B87 /* Tutor.swift in Sources */,
 				FE312FAC1E85E0E9000DFE40 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -16,6 +16,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var mapView: MKMapView!
     let manager = CLLocationManager()
     var count: Int?
+    static var longitude : String?
+    static var latitude : String?
     
     
     
@@ -26,13 +28,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         let span: MKCoordinateSpan = MKCoordinateSpanMake(0.01, 0.01)
         
         let myLocation: CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
+        MapViewController.longitude = "\(myLocation.longitude)"
+        MapViewController.latitude = "\(myLocation.latitude)"
         
         
         
         if count == 0{
             print("Student? ", LoginViewController.currentUserDetail as String!)
             print("longitutude : ", myLocation.longitude)
-            print("lattitude : ", myLocation.longitude)
+            print("lattitude : ", myLocation.latitude)
             
             
             if(LoginViewController.currentUserDetail as String! == "Student"){
@@ -47,6 +51,21 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                     }}
                 )
             }
+            else if(LoginViewController.currentUserDetail as String! == "Tutor"){
+                count = count! + 1
+                print("Inside this function")
+                Tutor.postUserImage( withCompletion: { _ in
+                    //s MBProgressHUD.showAdded(to: self.view, animated: true)
+                    print("Completed")
+                    DispatchQueue.main.async {
+                        print("POSTED")
+                        
+                    }}
+                )
+            }
+            
+            
+            
         }
         
         //set the region
