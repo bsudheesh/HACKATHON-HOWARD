@@ -13,6 +13,8 @@
 		FE312FB31E85E0E9000DFE40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE312FB21E85E0E9000DFE40 /* Assets.xcassets */; };
 		FE312FB61E85E0E9000DFE40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE312FB41E85E0E9000DFE40 /* LaunchScreen.storyboard */; };
 		FED756E71E85E30600508B87 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED756E61E85E30600508B87 /* LoginViewController.swift */; };
+		FED756E91E85F3D400508B87 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED756E81E85F3D400508B87 /* MapViewController.swift */; };
+		FED756EB1E85F59400508B87 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED756EA1E85F59400508B87 /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		FE312FB51E85E0E9000DFE40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FE312FB71E85E0E9000DFE40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FED756E61E85E30600508B87 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		FED756E81E85F3D400508B87 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		FED756EA1E85F59400508B87 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,8 @@
 			isa = PBXGroup;
 			children = (
 				FED756E61E85E30600508B87 /* LoginViewController.swift */,
+				FED756E81E85F3D400508B87 /* MapViewController.swift */,
+				FED756EA1E85F59400508B87 /* ProfileViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -236,6 +242,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FED756E71E85E30600508B87 /* LoginViewController.swift in Sources */,
+				FED756E91E85F3D400508B87 /* MapViewController.swift in Sources */,
+				FED756EB1E85F59400508B87 /* ProfileViewController.swift in Sources */,
 				FE312FAC1E85E0E9000DFE40 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -81,11 +81,78 @@
                         <outlet property="passWordLabel" destination="uiX-8Z-zKd" id="Glp-6M-Pna"/>
                         <outlet property="tutorSignUp" destination="FHl-6C-Cy8" id="HDT-JM-aqv"/>
                         <outlet property="userNameLabel" destination="eO9-5v-0VQ" id="zlx-Ps-AY4"/>
+                        <segue destination="rD3-We-PNW" kind="presentation" identifier="loginSegue" id="V73-y4-YvQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
+        </scene>
+        <!--Item 2-->
+        <scene sceneID="YS9-mO-Doq">
+            <objects>
+                <viewController id="UzS-dJ-M1h" customClass="ProfileViewController" customModule="Find_my_Tutor" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Kke-d9-di6"/>
+                        <viewControllerLayoutGuide type="bottom" id="mJm-uv-Nne"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fGz-mY-2fy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aHq-D9-tn3">
+                                <rect key="frame" x="148" y="224" width="51" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="LogOut"/>
+                                <connections>
+                                    <action selector="onLogOut:" destination="UzS-dJ-M1h" eventType="touchUpInside" id="jZe-Co-lwX"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 2" id="BrC-eQ-rsI"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CcK-h1-yyh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1982" y="466"/>
+        </scene>
+        <!--Item 1-->
+        <scene sceneID="m4U-68-4oL">
+            <objects>
+                <viewController id="thA-JM-AGr" customClass="MapViewController" customModule="Find_my_Tutor" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="leS-34-xX5"/>
+                        <viewControllerLayoutGuide type="bottom" id="FW3-PG-PQs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="WKo-Mw-fIw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="M8D-VL-ZiF"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PjU-u1-nCy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1981.5999999999999" y="-188.45577211394306"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="G6j-2e-don">
+            <objects>
+                <tabBarController storyboardIdentifier="HomeNavigationController" id="rD3-We-PNW" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="Mtv-Ga-miw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="thA-JM-AGr" kind="relationship" relationship="viewControllers" id="3RG-wn-Aeu"/>
+                        <segue destination="UzS-dJ-M1h" kind="relationship" relationship="viewControllers" id="mNn-lv-7Yd"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ltu-8R-oi8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1030" y="139"/>
         </scene>
     </scenes>
 </document>
