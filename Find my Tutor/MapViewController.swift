@@ -16,6 +16,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     var tutorLocation : [(PFObject)]!
     var location: [String]!
     var locationIndex: Int!
+    
 
     @IBOutlet weak var mapView: MKMapView!
     let manager = CLLocationManager()
@@ -138,6 +139,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         var lat: Double!
         var lon: Double!
         
+         var annotation = MKPointAnnotation()
         var numberFormatter = NumberFormatter()
         var number = numberFormatter.number(from: latitude)
         
@@ -158,13 +160,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                 
         var region = MKCoordinateRegion(center: location, span: span)
                 
-         var annotation = MKPointAnnotation()
+        
                 
          mapView.setRegion(region, animated: true)
                 
          annotation.coordinate = location
                 
          annotation.title = author
+        
+        mapView.addAnnotation(annotation)
 
                 
         
