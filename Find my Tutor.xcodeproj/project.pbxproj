@@ -16,6 +16,7 @@
 		FED756E91E85F3D400508B87 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED756E81E85F3D400508B87 /* MapViewController.swift */; };
 		FED756EB1E85F59400508B87 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED756EA1E85F59400508B87 /* ProfileViewController.swift */; };
 		FED756ED1E86023400508B87 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FED756EC1E86023400508B87 /* CoreLocation.framework */; };
+		FED756EF1E86124500508B87 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED756EE1E86124500508B87 /* Student.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		FED756E81E85F3D400508B87 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		FED756EA1E85F59400508B87 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		FED756EC1E86023400508B87 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		FED756EE1E86124500508B87 /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 		FED756E41E85E25C00508B87 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FED756EE1E86124500508B87 /* Student.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 				FED756E71E85E30600508B87 /* LoginViewController.swift in Sources */,
 				FED756E91E85F3D400508B87 /* MapViewController.swift in Sources */,
 				FED756EB1E85F59400508B87 /* ProfileViewController.swift in Sources */,
+				FED756EF1E86124500508B87 /* Student.swift in Sources */,
 				FE312FAC1E85E0E9000DFE40 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

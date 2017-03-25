@@ -8,12 +8,15 @@
 
 import UIKit
 import MapKit
+import Parse
 import CoreLocation
 
 class MapViewController: UIViewController, CLLocationManagerDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     let manager = CLLocationManager()
+    var count: Int?
+    
     
     
     //called everytime the user location is changed
@@ -24,30 +27,37 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         
         let myLocation: CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
         
+        
+        
+        if count == 0{
+            print("Student? ", LoginViewController.currentUserDetail as String!)
+            print("longitutude : ", myLocation.longitude)
+            print("lattitude : ", myLocation.longitude)
+            
+            
+            if(LoginViewController.currentUserDetail as String! == "Student"){
+                count = count! + 1
+                print("Inside this function")
+                Student.postUserImage( withCompletion: { _ in
+                    //s MBProgressHUD.showAdded(to: self.view, animated: true)
+                    print("Completed")
+                    DispatchQueue.main.async {
+                        print("POSTED")
+                        
+                    }}
+                )
+            }
+        }
+        
         //set the region
         let region: MKCoordinateRegion = MKCoordinateRegionMake(myLocation, span) //location and the span
+        
         //set the map
         mapView.setRegion(region, animated: true)
         
         //add the blue dot
         self.mapView.showsUserLocation = true
  
-        
-        /*
-        CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: { (placemarks, error) -> Void in
-            if error != nil{
-                print("Error", error?.localizedDescription)
-                return
-            }
-            else if (placemarks?.count)! > 0{
-                let currentLocation = placemarks?[0]
-            }
-            
-            
-        })
-    */
-        
-        
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -60,10 +70,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         manager.delegate = self
         
-        
+        count = 0
         manager.desiredAccuracy = kCLLocationAccuracyBest //get best accuracy
         manager.requestWhenInUseAuthorization() //asking user's location in background
         manager.startUpdatingLocation() //called when location is changed
+        
         // Do any additional setup after loading the view.
     }
 

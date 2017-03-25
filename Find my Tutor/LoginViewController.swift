@@ -16,6 +16,8 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var passWordLabel: UITextField!
     
+    static var currentUserDetail: String?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,12 +110,14 @@ class LoginViewController: UIViewController {
                 
                 if let currentUser = currentUser{
                     if(currentUser as String! == "student@student.com"){
+                        LoginViewController.currentUserDetail = "Student"
                         print("Student has logged in")
                     }
                     else{
+                        LoginViewController.currentUserDetail = "Tutor"
+
                         print("Tutor has logged in")
                     }
-                    
                     
                 }
                 print("Student email is : ", user?.email)
