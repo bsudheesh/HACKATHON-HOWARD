@@ -159,14 +159,39 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                 
                 
         var region = MKCoordinateRegion(center: location, span: span)
-                
+        
+//        var start = author.index(author.startIndex, offsetBy: 5)
+//        print("The end Index is : ", author.endIndex)
+//        var end = author.endIndex
+//        
+//        var range = start ... end
+//        var correctAuthor = author[range]
+//
+//        print("Author is : ", correctAuthor)
+        
+        
+        var correctAuthor: String!
+        var slicingIndex: Int!
+        slicingIndex = 0
+        correctAuthor = ""
+        for element in author.characters{
+            print("Chracter outsude is : ", element)
+            if slicingIndex >= 6{
+                print("Character is : ", element)
+                correctAuthor = correctAuthor + String(element)
+               
+            }
+            slicingIndex = slicingIndex + 1
+        }
+        
+         mapView.setRegion(region, animated: true)
+        
+         annotation.coordinate = location
+        
+      
         
                 
-         mapView.setRegion(region, animated: true)
-                
-         annotation.coordinate = location
-                
-         annotation.title = author
+         annotation.title = correctAuthor
         
         mapView.addAnnotation(annotation)
 
