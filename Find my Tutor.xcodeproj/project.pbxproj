@@ -15,6 +15,7 @@
 		FED756E71E85E30600508B87 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED756E61E85E30600508B87 /* LoginViewController.swift */; };
 		FED756E91E85F3D400508B87 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED756E81E85F3D400508B87 /* MapViewController.swift */; };
 		FED756EB1E85F59400508B87 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED756EA1E85F59400508B87 /* ProfileViewController.swift */; };
+		FED756ED1E86023400508B87 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FED756EC1E86023400508B87 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		FED756E61E85E30600508B87 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FED756E81E85F3D400508B87 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		FED756EA1E85F59400508B87 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		FED756EC1E86023400508B87 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FED756ED1E86023400508B87 /* CoreLocation.framework in Frameworks */,
 				58B9D1BE8E9F1F0B832C578E /* Pods_Find_my_Tutor.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,6 +59,7 @@
 		C2B583261D08CC8CAE889EE3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FED756EC1E86023400508B87 /* CoreLocation.framework */,
 				F34227E603C2152126EB4CFC /* Pods_Find_my_Tutor.framework */,
 			);
 			name = Frameworks;

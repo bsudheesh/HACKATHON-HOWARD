@@ -128,9 +128,18 @@
                     <view key="view" contentMode="scaleToFill" id="WKo-Mw-fIw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="PkQ-dz-tGv">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="556"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="M8D-VL-ZiF"/>
+                    <connections>
+                        <outlet property="mapView" destination="PkQ-dz-tGv" id="MX1-eO-4d9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PjU-u1-nCy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
