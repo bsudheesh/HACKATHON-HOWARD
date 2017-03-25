@@ -12,6 +12,10 @@ import Parse
 import CoreLocation
 
 class MapViewController: UIViewController, CLLocationManagerDelegate {
+    
+    var tutorLocation : [(PFObject)]!
+    var location: [String]!
+    var locationIndex: Int!
 
     @IBOutlet weak var mapView: MKMapView!
     let manager = CLLocationManager()
@@ -19,7 +23,41 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     static var longitude : String?
     static var latitude : String?
     
-    
+    func getData(){
+        // construct PFQuery
+        locationIndex = 0
+        let query = PFQuery(className: "Post")
+        query.order(byDescending: "createdAt")
+        query.includeKey("author")
+        
+        // fetch data asynchronously
+        query.findObjectsInBackground { (posts: [PFObject]?, error: Error?) -> Void in
+            if let posts = posts {
+                self.tutorLocation = posts
+                
+                for element in self.tutorLocation{
+                    if element["student"] as! String! == "Tutor"{
+                        
+                        var author: String!
+                        var longititude: String!
+                        var latitude: String!
+                        
+                        author = element["author"] as! String
+                        longititude = element["latitude"] as! String
+                        latitude = element["longitutude"] as! String
+                        
+                        self.getMarkers(latitude: latitude, longitude: longititude, author: author)
+                    }
+                }
+                
+                // do something with the data fetched
+            } else {
+                print("Error! : ", error?.localizedDescription)
+                // handle error
+            }
+            
+        }
+    }
     
     //called everytime the user location is changed
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -35,8 +73,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         
         if count == 0{
             print("Student? ", LoginViewController.currentUserDetail as String!)
-            print("longitutude : ", myLocation.longitude)
-            print("lattitude : ", myLocation.latitude)
+    
             
             
             if(LoginViewController.currentUserDetail as String! == "Student"){
@@ -85,14 +122,69 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     
     
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        if LoginViewController.currentUserDetail == "Student"{
+//            
+//            getData()
+//            //print("The post are : ", tutorLocation)
+//        }
+//        
+//        
+//    }
+    
+    func getMarkers(latitude: String, longitude: String, author: String) -> Void {
+        
+        var lat: Double!
+        var lon: Double!
+        
+        var numberFormatter = NumberFormatter()
+        var number = numberFormatter.number(from: latitude)
+        
+                
+        lat = number?.doubleValue
+        
+        number = numberFormatter.number(from: longitude)
+        
+        lon = number?.doubleValue
+        
+        print("Latitude is : ", lat, "longitude is : ", lon)
+        
+        var location = CLLocationCoordinate2DMake(lon, lat)
+        
+        var span = MKCoordinateSpanMake(0.01, 0.01)
+                
+                
+                
+        var region = MKCoordinateRegion(center: location, span: span)
+                
+         var annotation = MKPointAnnotation()
+                
+         mapView.setRegion(region, animated: true)
+                
+         annotation.coordinate = location
+                
+         annotation.title = author
+
+                
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         manager.delegate = self
         
         count = 0
-        manager.desiredAccuracy = kCLLocationAccuracyBest //get best accuracy
-        manager.requestWhenInUseAuthorization() //asking user's location in background
-        manager.startUpdatingLocation() //called when location is changed
+        if LoginViewController.currentUserDetail as String! == "Tutor"{
+            manager.desiredAccuracy = kCLLocationAccuracyBest //get best accuracy
+            manager.requestWhenInUseAuthorization() //asking user's location in background
+            manager.startUpdatingLocation() //called when location is changed
+
+        }
+        else{
+            getData()
+            //getMarkers()
+        }
         
         // Do any additional setup after loading the view.
     }

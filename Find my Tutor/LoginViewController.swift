@@ -108,9 +108,11 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     @IBAction func onSignIn(_ sender: Any) {
         if choiceIndex == 0{
+            LoginViewController.currentUserDetail = "Student"
             userNameTemp = "student_" + userNameLabel.text!
         }
         else{
+            LoginViewController.currentUserDetail = "Tutor"
             userNameTemp = "tutor_" + userNameLabel.text!
         }
         PFUser.logInWithUsername(inBackground: userNameTemp!, password: passWordLabel.text!){
