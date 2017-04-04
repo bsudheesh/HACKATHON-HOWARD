@@ -23,9 +23,10 @@ class Student: NSObject {
         post["author"] = PFUser.current()?.username
         post["student"] = LoginViewController.currentUserDetail as String!
         
-        print("Longititude is : ", MapViewController.longitude as String!)
+        //print("Longititude is : ", MapViewController.longitude as String!)
         post["longitutude"] = MapViewController.longitude as String!
         post["latitude"] = MapViewController.latitude as String!
+        
         
         // Save object (following function will save the object in Parse asynchronously)
         post.saveInBackground(block: completion)

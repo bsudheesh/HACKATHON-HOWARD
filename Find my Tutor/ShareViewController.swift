@@ -16,6 +16,8 @@ class ShareViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     @IBOutlet weak var userNameTextField: UITextField!
     
+    @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var firstNameTextField: UITextField!
     static var currentUserDetail: String?
     var userNameTemp: String?
 
@@ -61,24 +63,7 @@ class ShareViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         var checkSpecialCharacter = false
         let newUser = PFUser()
         var temp = userNameTextField.text
-        for characters in (temp?.characters)!{
-            if characters == "_"{
-                checkSpecialCharacter = true
-            }
-            let alertController = UIAlertController(title: "ERROR!", message: "Cannot include _ in username ", preferredStyle: .alert)
-            
-            
-            let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
-                
-            }
-            alertController.addAction(cancelAction)
-            self.present(alertController, animated: true) {
-                self.userNameTextField.text = ""
-                // optional code for what happens after the alert controller has finished presenting
-            }
-
-            
-        }
+        
         if choiceIndex == 0{
             
             var checker = userNameTextField.text!
@@ -124,38 +109,81 @@ class ShareViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         }
         if userNameTextField.text?.characters.count != 0  && passWordTextField.text?.characters.count != 0{
             
-            newUser.username = userNameTemp
-            newUser.password = passWordTextField.text
-            newUser.email = emailTextField.text
-            
-            newUser.signUpInBackground {
-                (succeeded: Bool, error:Error?) -> Void in
-                if succeeded {
-                    print("Created a", LoginViewController.currentUserDetail!, " user")
-                    
-                    
-                    let alertController = UIAlertController(title: "WELCOME", message: "Welcome to Chat", preferredStyle: .alert)
+            for characters in (temp?.characters)!{
+                if characters == "_"{
+                    checkSpecialCharacter = true
+                    let alertController = UIAlertController(title: "ERROR!", message: "Cannot include _ in username ", preferredStyle: .alert)
                     
                     
                     let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
                         
                     }
                     alertController.addAction(cancelAction)
-                    
-                    
                     self.present(alertController, animated: true) {
+                        self.userNameTextField.text = ""
+                        checkSpecialCharacter =  false
                         // optional code for what happens after the alert controller has finished presenting
-                        self.performSegue(withIdentifier: "loginSignUpSegue", sender: nil)
                     }
-                    //loginSignUpSegue
-                    
-                    
-                }
-                else{
-                    print("Error is : ",error?.localizedDescription)
+
                 }
                 
+                
             }
+            print("Check speial character is : ", checkSpecialCharacter)
+            
+            if !checkSpecialCharacter{
+                newUser.username = userNameTemp
+                newUser.password = passWordTextField.text
+                newUser.email = emailTextField.text
+                
+                let post = PFObject(className: "Post")
+                post["username"] = userNameTextField.text
+                post["firstname"] = firstNameTextField.text
+                post["email"] = emailTextField.text
+                post["lastname"] = lastNameTextField.text
+                post["phonenumber"] = phoneNumberTextField.text
+                if choiceIndex == 0{
+                    post["occupation"] = "Student"
+                }
+                else{
+                    post["occupation"] = "Teacher"
+                }
+                
+                var history = Dictionary<String, String>()
+                post["history"] = history
+                
+                
+                newUser.signUpInBackground {
+                    (succeeded: Bool, error:Error?) -> Void in
+                    if succeeded {
+                        print("Created a", LoginViewController.currentUserDetail!, " user")
+                        
+                        
+                        let alertController = UIAlertController(title: "WELCOME", message: "Welcome to Chat", preferredStyle: .alert)
+                        
+                        
+                        let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
+                            
+                        }
+                        alertController.addAction(cancelAction)
+                        
+                        
+                        self.present(alertController, animated: true) {
+                            // optional code for what happens after the alert controller has finished presenting
+                            self.performSegue(withIdentifier: "loginSignUpSegue", sender: nil)
+                        }
+                        //loginSignUpSegue
+                        
+                        
+                    }
+                    else{
+                        print("Error is : ",error?.localizedDescription)
+                    }
+                    
+                }
+            }
+            
+            
 
         }
         else{
