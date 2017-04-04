@@ -223,7 +223,7 @@
                         <outlet property="passWordTextField" destination="OLg-g4-txG" id="muf-ps-O0v"/>
                         <outlet property="phoneNumberTextField" destination="rhC-J2-ERS" id="YTi-yK-l9p"/>
                         <outlet property="userNameTextField" destination="W8u-h4-VLn" id="d2K-bV-cuW"/>
-                        <segue destination="rD3-We-PNW" kind="presentation" identifier="loginSignUpSegue" id="e8T-RX-a1q"/>
+                        <segue destination="rD3-We-PNW" kind="show" identifier="loginSignUpSegue" id="wsU-ea-NSC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aRn-Nb-ChA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -312,6 +312,6 @@
         <image name="tutorbackg" width="640" height="1136"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="e8T-RX-a1q"/>
+        <segue reference="wsU-ea-NSC"/>
     </inferredMetricsTieBreakers>
 </document>

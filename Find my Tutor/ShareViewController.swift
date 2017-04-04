@@ -10,6 +10,15 @@ import UIKit
 import Parse
 
 class ShareViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    static var FirstName: String!
+    static var LastName: String!
+    static var PhoneNumber: String!
+    static var email: String!
+    static var occupation: String!
+    static var userName: String!
+    static var history = Dictionary<String, String>()
+    
 
     
     @IBOutlet weak var emailTextField: UITextField!
@@ -136,23 +145,26 @@ class ShareViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                 newUser.password = passWordTextField.text
                 newUser.email = emailTextField.text
                 
-                let post = PFObject(className: "Post")
-                post["username"] = userNameTextField.text
-                post["firstname"] = firstNameTextField.text
-                post["email"] = emailTextField.text
-                post["lastname"] = lastNameTextField.text
-                post["phonenumber"] = phoneNumberTextField.text
+                ShareViewController.userName = userNameTextField.text
+                ShareViewController.FirstName = firstNameTextField.text
+                ShareViewController.LastName = lastNameTextField.text
+                ShareViewController.PhoneNumber = phoneNumberTextField.text
+                ShareViewController.email = emailTextField.text
                 if choiceIndex == 0{
-                    post["occupation"] = "Student"
+                    ShareViewController.occupation = "Student"
                 }
                 else{
-                    post["occupation"] = "Teacher"
+                        ShareViewController.occupation = "Tutor"
                 }
                 
-                var history = Dictionary<String, String>()
-                post["history"] = history
-                
-                
+                Student.postUserImage( withCompletion: { _ in
+                    //s MBProgressHUD.showAdded(to: self.view, animated: true)
+                    print("Completed")
+                    DispatchQueue.main.async {
+                        print("POSTED")
+                        
+                    }}
+                )
                 newUser.signUpInBackground {
                     (succeeded: Bool, error:Error?) -> Void in
                     if succeeded {
@@ -171,6 +183,7 @@ class ShareViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                         self.present(alertController, animated: true) {
                             // optional code for what happens after the alert controller has finished presenting
                             self.performSegue(withIdentifier: "loginSignUpSegue", sender: nil)
+                            //self.dismiss(animated: true, completion: nil)
                         }
                         //loginSignUpSegue
                         
