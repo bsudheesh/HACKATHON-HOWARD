@@ -51,6 +51,8 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
 
     @IBAction func onSignUp(_ sender: Any) {
+        self.performSegue(withIdentifier: "signUpSegue", sender: nil)
+        /*
         let newUser = PFUser()
         if choiceIndex == 0{
             LoginViewController.currentUserDetail = "Student"
@@ -62,6 +64,7 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             userNameTemp = "tutor_" + userNameLabel.text!
             
         }
+        //signUpSegue
         newUser.username = userNameTemp
         newUser.password = passWordLabel.text
         newUser.signUpInBackground {
@@ -88,6 +91,7 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                 print("Error is : ",error?.localizedDescription)
             }
         }
+    */
         
         
         
