@@ -37,7 +37,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                 self.tutorLocation = posts
                 
                 for element in self.tutorLocation{
-                    if element["student"] as! String! == "Tutor"{
+                    if element["occupation"] as! String! == "Tutor"{
                         
                         var author: String!
                         var longititude: String!
@@ -92,14 +92,26 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             else if(LoginViewController.currentUserDetail as String! == "Tutor"){
                 count = count! + 1
                 print("Inside this function")
-                Tutor.postUserImage( withCompletion: { _ in
-                    //s MBProgressHUD.showAdded(to: self.view, animated: true)
-                    print("Completed")
-                    DispatchQueue.main.async {
-                        print("POSTED")
-                        
-                    }}
-                )
+                
+                let query = PFQuery(className: "Post")
+                query.order(byDescending: "createdAt")
+                query.includeKey("author")
+                
+                // fetch data asynchronously
+                query.findObjectsInBackground { (posts: [PFObject]?, error: Error?) -> Void in
+                    if let posts = posts {
+                        print("User posts are : ", posts)
+                    }
+                }
+                
+//                Tutor.postUserImage( withCompletion: { _ in
+//                    //s MBProgressHUD.showAdded(to: self.view, animated: true)
+//                    print("Completed")
+//                    DispatchQueue.main.async {
+//                        print("POSTED")
+//                        
+//                    }}
+//                )
             }
             
             
@@ -121,18 +133,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         print("Error", error.localizedDescription)
     }
     
-    
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        if LoginViewController.currentUserDetail == "Student"{
-//            
-//            getData()
-//            //print("The post are : ", tutorLocation)
-//        }
-//        
-//        
-//    }
     
     func getMarkers(latitude: String, longitude: String, author: String) -> Void {
         
@@ -159,25 +159,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                 
                 
         var region = MKCoordinateRegion(center: location, span: span)
-        
-//        var start = author.index(author.startIndex, offsetBy: 5)
-//        print("The end Index is : ", author.endIndex)
-//        var end = author.endIndex
-//        
-//        var range = start ... end
-//        var correctAuthor = author[range]
-//
-//        print("Author is : ", correctAuthor)
-        
-        
+                
         var correctAuthor: String!
         var slicingIndex: Int!
         slicingIndex = 0
         correctAuthor = ""
         for element in author.characters{
-            print("Chracter outsude is : ", element)
+            
             if slicingIndex >= 6{
-                print("Character is : ", element)
+                
                 correctAuthor = correctAuthor + String(element)
                
             }

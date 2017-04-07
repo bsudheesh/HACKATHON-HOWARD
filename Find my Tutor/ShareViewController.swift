@@ -35,7 +35,7 @@ class ShareViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     @IBOutlet weak var jobPickerView: UIPickerView!
     @IBOutlet weak var phoneNumberTextField: UITextField!
-    var choiceIndex = 0
+    var choiceIndex : Int!
     
     var choices = ["Student","Tutor"]
     
@@ -67,13 +67,18 @@ class ShareViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     }
     
     
-
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        choiceIndex = row
+    }
+    
     @IBAction func onSignUp(_ sender: Any) {
         var checkSpecialCharacter = false
         let newUser = PFUser()
         var temp = userNameTextField.text
         
         if choiceIndex == 0{
+            print("The user will be a student")
             
             var checker = userNameTextField.text!
             if checker.characters.count == 0{
@@ -96,6 +101,7 @@ class ShareViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             
         }
         else{
+            print("The user will be a tutor")
             var checker = userNameTextField.text!
             if checker.characters.count == 0{
                 let alertController = UIAlertController(title: "ERROR!", message: "Username can't be empty", preferredStyle: .alert)
@@ -139,6 +145,7 @@ class ShareViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                 
             }
             print("Check speial character is : ", checkSpecialCharacter)
+            print("User name is : ", userNameTemp)
             
             if !checkSpecialCharacter{
                 newUser.username = userNameTemp
@@ -150,6 +157,7 @@ class ShareViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                 ShareViewController.LastName = lastNameTextField.text
                 ShareViewController.PhoneNumber = phoneNumberTextField.text
                 ShareViewController.email = emailTextField.text
+                
                 if choiceIndex == 0{
                     ShareViewController.occupation = "Student"
                 }
@@ -157,14 +165,6 @@ class ShareViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                         ShareViewController.occupation = "Tutor"
                 }
                 
-                Student.postUserImage( withCompletion: { _ in
-                    //s MBProgressHUD.showAdded(to: self.view, animated: true)
-                    print("Completed")
-                    DispatchQueue.main.async {
-                        print("POSTED")
-                        
-                    }}
-                )
                 newUser.signUpInBackground {
                     (succeeded: Bool, error:Error?) -> Void in
                     if succeeded {
@@ -181,6 +181,15 @@ class ShareViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                         
                         
                         self.present(alertController, animated: true) {
+                            Student.postUserImage( withCompletion: { _ in
+                                //s MBProgressHUD.showAdded(to: self.view, animated: true)
+                                print("Completed")
+                                DispatchQueue.main.async {
+                                    print("POSTED")
+                                    
+                                }}
+                            )
+
                             // optional code for what happens after the alert controller has finished presenting
                             self.performSegue(withIdentifier: "loginSignUpSegue", sender: nil)
                             //self.dismiss(animated: true, completion: nil)
@@ -194,6 +203,8 @@ class ShareViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                     }
                     
                 }
+                
+                
             }
             
             
