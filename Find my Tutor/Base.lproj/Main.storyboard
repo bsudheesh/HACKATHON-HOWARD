@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -93,7 +93,6 @@
                     </view>
                     <connections>
                         <outlet property="choiceLabel" destination="ic3-ad-L5Q" id="JOU-k5-3Sj"/>
-                        <outlet property="onSignIn" destination="OdZ-Ky-yl1" id="aot-g8-9RC"/>
                         <outlet property="passWordLabel" destination="uiX-8Z-zKd" id="Glp-6M-Pna"/>
                         <outlet property="userNameLabel" destination="eO9-5v-0VQ" id="zlx-Ps-AY4"/>
                         <segue destination="rD3-We-PNW" kind="presentation" identifier="loginSegue" id="V73-y4-YvQ"/>
@@ -312,6 +311,6 @@
         <image name="tutorbackg" width="640" height="1136"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wsU-ea-NSC"/>
+        <segue reference="V73-y4-YvQ"/>
     </inferredMetricsTieBreakers>
 </document>

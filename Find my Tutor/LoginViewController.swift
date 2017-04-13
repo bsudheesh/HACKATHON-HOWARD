@@ -104,7 +104,7 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         
         
     }
-    @IBOutlet weak var onSignIn: UIButton!
+   
     /*
     // MARK: - Navigation
 

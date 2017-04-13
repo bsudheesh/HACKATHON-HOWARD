@@ -34,20 +34,48 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         // fetch data asynchronously
         query.findObjectsInBackground { (posts: [PFObject]?, error: Error?) -> Void in
             if let posts = posts {
+               
                 self.tutorLocation = posts
-                
+                print("The data till now is : ", posts)
                 for element in self.tutorLocation{
                     if element["occupation"] as! String! == "Tutor"{
                         
+                        
+                        print("The user info is : ", element)
                         var author: String!
                         var longititude: String!
                         var latitude: String!
                         
-                        author = element["author"] as! String
-                        longititude = element["latitude"] as! String
-                        latitude = element["longitutude"] as! String
+                        var fullName : String!
+                        fullName = element["firstName"] as! String
+                        fullName.append(" ")
+                        fullName.append(element["lastName"] as! String)
                         
-                        self.getMarkers(latitude: latitude, longitude: longititude, author: author)
+                        author = element["author"] as! String
+                        
+                        var locationDict = Dictionary<String, String>()
+                        
+                        
+                       
+                        
+                        if (element["location"] as! Dictionary<String,String>).isEmpty {
+                            locationDict = element["location"] as! Dictionary<String, String>
+                            
+                            
+                            print("The locationDict for the user is : ", locationDict)
+                            if(locationDict.count != 0){
+                                longititude = locationDict["latitude"] as! String
+                                latitude = locationDict["longitutude"] as! String
+                                
+                                self.getMarkers(latitude: latitude, longitude: longititude, author: fullName)
+                                
+                            }
+                            
+                        }
+
+                        
+                        
+                        
                     }
                 }
                 
@@ -103,15 +131,24 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                         print("User posts are : ", posts)
                     }
                 }
+                var locationDict = Dictionary<String, String>()
+                locationDict["latitude"] = MapViewController.latitude!
+                locationDict["longitute"] = MapViewController.longitude!
+                ShareViewController.history["location"] = locationDict
                 
-//                Tutor.postUserImage( withCompletion: { _ in
-//                    //s MBProgressHUD.showAdded(to: self.view, animated: true)
-//                    print("Completed")
-//                    DispatchQueue.main.async {
-//                        print("POSTED")
-//                        
-//                    }}
-//                )
+              Tutor.postUserImage( withCompletion: { _ in
+                   
+                print("Completed")
+                
+                
+                print("Locationdict is : ", locationDict)
+                
+                
+                DispatchQueue.main.async {
+                        print("POSTED")
+                        
+                    }}
+                )
             }
             
             
@@ -160,19 +197,19 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                 
         var region = MKCoordinateRegion(center: location, span: span)
                 
-        var correctAuthor: String!
-        var slicingIndex: Int!
-        slicingIndex = 0
-        correctAuthor = ""
-        for element in author.characters{
-            
-            if slicingIndex >= 6{
-                
-                correctAuthor = correctAuthor + String(element)
-               
-            }
-            slicingIndex = slicingIndex + 1
-        }
+//        var correctAuthor: String!
+//        var slicingIndex: Int!
+//        slicingIndex = 0
+//        correctAuthor = ""
+//        for element in author.characters{
+//            
+//            if slicingIndex >= 6{
+//                
+//                correctAuthor = correctAuthor + String(element)
+//               
+//            }
+//            slicingIndex = slicingIndex + 1
+//        }
         
          mapView.setRegion(region, animated: true)
         
@@ -181,7 +218,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
       
         
                 
-         annotation.title = correctAuthor
+         annotation.title = author
         
         mapView.addAnnotation(annotation)
 
@@ -192,6 +229,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         manager.delegate = self
+        
+        print("Inside the student thing")
         
         count = 0
         if LoginViewController.currentUserDetail as String! == "Tutor"{

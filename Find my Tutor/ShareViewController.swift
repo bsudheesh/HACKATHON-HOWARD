@@ -17,7 +17,7 @@ class ShareViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     static var email: String!
     static var occupation: String!
     static var userName: String!
-    static var history = Dictionary<String, String>()
+    static var history = Dictionary<String, Dictionary<String, String> >()
     
 
     
@@ -35,7 +35,7 @@ class ShareViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     @IBOutlet weak var jobPickerView: UIPickerView!
     @IBOutlet weak var phoneNumberTextField: UITextField!
-    var choiceIndex : Int!
+    var choiceIndex = 0
     
     var choices = ["Student","Tutor"]
     
@@ -70,6 +70,7 @@ class ShareViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         choiceIndex = row
+        print("Inside the function, the choiceIndex is : ", choiceIndex)
     }
     
     @IBAction func onSignUp(_ sender: Any) {
