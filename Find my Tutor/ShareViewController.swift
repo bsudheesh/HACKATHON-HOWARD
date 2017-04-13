@@ -18,6 +18,8 @@ class ShareViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     static var occupation: String!
     static var userName: String!
     static var history = Dictionary<String, Dictionary<String, String> >()
+    static var latitude: String!
+    static var longitude: String!
     
 
     

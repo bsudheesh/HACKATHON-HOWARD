@@ -23,6 +23,8 @@ class Tutor: NSObject {
         post["email"] = ShareViewController.email
         post["phoneNumber"] = ShareViewController.PhoneNumber
         post["history"] = ShareViewController.history
+        post["longitude"] = ShareViewController.longitude
+        post["latitude"] = ShareViewController.latitude
         
         //        print("Longititude is : ", MapViewController.longitude as String!)
         //        post["longitutude"] = MapViewController.longitude as String!

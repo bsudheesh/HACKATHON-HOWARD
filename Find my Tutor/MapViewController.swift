@@ -53,25 +53,37 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                         
                         author = element["author"] as! String
                         
-                        var locationDict = Dictionary<String, String>()
                         
                         
-                       
+                        longititude = element["longitude"] as? String
+                        latitude = element["latitude"] as? String
                         
-                        if (element["location"] as! Dictionary<String,String>).isEmpty {
-                            locationDict = element["location"] as! Dictionary<String, String>
-                            
-                            
-                            print("The locationDict for the user is : ", locationDict)
-                            if(locationDict.count != 0){
-                                longititude = locationDict["latitude"] as! String
-                                latitude = locationDict["longitutude"] as! String
-                                
-                                self.getMarkers(latitude: latitude, longitude: longititude, author: fullName)
-                                
-                            }
-                            
+                        if longititude != nil && latitude != nil {
+                            self.getMarkers(latitude: latitude, longitude: longititude, author: fullName)
                         }
+                        
+                        
+                        
+//                        
+//                        var locationDict = Dictionary<String, String>()
+//                        
+//                        
+//                       
+//                        
+//                        if (element["location"] as! Dictionary<String,String>).isEmpty {
+//                            locationDict = element["location"] as! Dictionary<String, String>
+//                            
+//                            
+//                            print("The locationDict for the user is : ", locationDict)
+//                            if(locationDict.count != 0){
+//                                longititude = locationDict["latitude"] as! String
+//                                latitude = locationDict["longitutude"] as! String
+//                                
+//
+//                                
+//                            }
+//                            
+//                        }
 
                         
                         
@@ -131,17 +143,20 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                         print("User posts are : ", posts)
                     }
                 }
-                var locationDict = Dictionary<String, String>()
-                locationDict["latitude"] = MapViewController.latitude!
-                locationDict["longitute"] = MapViewController.longitude!
-                ShareViewController.history["location"] = locationDict
+//                var locationDict = Dictionary<String, String>()
+//                locationDict["latitude"] = MapViewController.latitude!
+//                locationDict["longitute"] = MapViewController.longitude!
+//                ShareViewController.history["location"] = locationDict
+                
+                ShareViewController.latitude = MapViewController.latitude!
+                ShareViewController.longitude = MapViewController.longitude!
                 
               Tutor.postUserImage( withCompletion: { _ in
                    
                 print("Completed")
                 
                 
-                print("Locationdict is : ", locationDict)
+            
                 
                 
                 DispatchQueue.main.async {
