@@ -17,7 +17,7 @@ class ShareViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     static var email: String!
     static var occupation: String!
     static var userName: String!
-    static var history = Dictionary<String, Dictionary<String, String> >()
+    static var history = Dictionary<String, String>()
     static var latitude: String!
     static var longitude: String!
     
@@ -154,17 +154,27 @@ class ShareViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                 newUser.username = userNameTemp
                 newUser.password = passWordTextField.text
                 newUser.email = emailTextField.text
+                newUser["firstName"] = firstNameTextField.text
+                newUser["lastName"] = lastNameTextField.text
+                newUser["phoneNumber"] = phoneNumberTextField.text
                 
+                var tempDict = Dictionary<String, String> ()
+                
+                ShareViewController.history = tempDict
                 ShareViewController.userName = userNameTextField.text
                 ShareViewController.FirstName = firstNameTextField.text
                 ShareViewController.LastName = lastNameTextField.text
                 ShareViewController.PhoneNumber = phoneNumberTextField.text
                 ShareViewController.email = emailTextField.text
+                ShareViewController.latitude = ""
+                ShareViewController.longitude = ""
                 
                 if choiceIndex == 0{
+                    newUser["occupation"] = "Student"
                     ShareViewController.occupation = "Student"
                 }
                 else{
+                    newUser["occupation"] = "Tutor"
                         ShareViewController.occupation = "Tutor"
                 }
                 
@@ -184,7 +194,7 @@ class ShareViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                         
                         
                         self.present(alertController, animated: true) {
-                            Student.postUserImage( withCompletion: { _ in
+                            Tutor.postUserImage( withCompletion: { _ in
                                 //s MBProgressHUD.showAdded(to: self.view, animated: true)
                                 print("Completed")
                                 DispatchQueue.main.async {

@@ -23,82 +23,121 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     var count: Int?
     static var longitude : String?
     static var latitude : String?
+    var allElements = [PFObject]()
+    var objectID: String!
     
-    func getData(){
-        // construct PFQuery
-        locationIndex = 0
+    func getAllData(){
         let query = PFQuery(className: "Post")
         query.order(byDescending: "createdAt")
         query.includeKey("author")
+        query.includeKey("_id")
+        query.includeKey("firstName")
+        query.includeKey("phoneNumber")
+        query.includeKey("email")
+        query.includeKey("occupation")
+        query.includeKey("latitude")
+        query.includeKey("longitude")
         
-        // fetch data asynchronously
-        query.findObjectsInBackground { (posts: [PFObject]?, error: Error?) -> Void in
-            if let posts = posts {
-               
-                self.tutorLocation = posts
-                print("The data till now is : ", posts)
-                for element in self.tutorLocation{
-                    if element["occupation"] as! String! == "Tutor"{
-                        
-                        
-                        print("The user info is : ", element)
-                        var author: String!
-                        var longititude: String!
-                        var latitude: String!
-                        
-                        var fullName : String!
-                        fullName = element["firstName"] as! String
-                        fullName.append(" ")
-                        fullName.append(element["lastName"] as! String)
-                        
-                        author = element["author"] as! String
-                        
-                        
-                        
-                        longititude = element["longitude"] as? String
-                        latitude = element["latitude"] as? String
-                        
-                        if longititude != nil && latitude != nil {
-                            self.getMarkers(latitude: latitude, longitude: longititude, author: fullName)
-                        }
-                        
-                        
-                        
-//                        
-//                        var locationDict = Dictionary<String, String>()
-//                        
-//                        
-//                       
-//                        
-//                        if (element["location"] as! Dictionary<String,String>).isEmpty {
-//                            locationDict = element["location"] as! Dictionary<String, String>
-//                            
-//                            
-//                            print("The locationDict for the user is : ", locationDict)
-//                            if(locationDict.count != 0){
-//                                longititude = locationDict["latitude"] as! String
-//                                latitude = locationDict["longitutude"] as! String
-//                                
-//
-//                                
-//                            }
-//                            
-//                        }
+        query.includeKey("lastName")
+        query.includeKey("author")
+        
+      
 
-                        
-                        
-                        
+        
+        
+       query.findObjectsInBackground { (posts: [PFObject]?, error: Error?) -> Void in
+        if let random = posts{
+            
+                self.allElements = random
+                var currentUser = PFUser.current()
+            
+                print("The current user data is : ", PFUser.current())
+                var occupation = currentUser?["occupation"]
+                var userName = "\(currentUser?["username"])"
+            
+                print("The user name is : ", userName)
+                for element in self.allElements{
+                    if "\(element["author"])" == userName{
+                        self.objectID = element.objectId
                     }
                 }
-                
-                // do something with the data fetched
-            } else {
-                print("Error! : ", error?.localizedDescription)
-                // handle error
+            
+            
+                print("The object id for : ", userName, " is : ", self.objectID)
+            
+            
+            
+            
+                if occupation as! String != "Tutor"{
+                    self.getData(allElement: self.allElements)
+                }
+                else{
+                    self.updateCoordinates()
             }
             
+            }
+        }
+        
+    }
+    
+    func updateCoordinates(){
+        print("Inside this function")
+        print("the id is : ", self.objectID)
+        if self.objectID != nil{
+            let query = PFQuery(className: "Posts")
+            do {
+                let object = try query.getObjectWithId(self.objectID)
+                print("The id is found")
+                print("Lat is : ", MapViewController.latitude, "Long is : ",MapViewController.longitude)
+                if MapViewController.latitude != nil && MapViewController.longitude != nil{
+                    object["latitude"] = MapViewController.latitude
+                    object["longitude"] = MapViewController.longitude
+                    object.saveInBackground()
+
+                }
+            } catch {
+                print(error)
+            }
+        }
+        
+    }
+    
+    func getData(allElement: [PFObject]){
+        // construct PFQuery
+        locationIndex = 0
+        
+            for element in self.allElements{
+                if element["occupation"] as! String! == "Tutor"{
+                        
+                        
+                    print("The user info is : ", element)
+                    var author: String!
+                    var longititude: String!
+                    var latitude: String!
+                        
+                    var fullName : String!
+                    fullName = element["firstName"] as! String
+                    fullName.append(" ")
+                    fullName.append(element["lastName"] as! String)
+                    
+                    author = element["author"] as! String
+                    
+                    
+                    
+                    longititude = element["longitude"] as? String
+                    latitude = element["latitude"] as? String
+                    
+                    if longititude != nil && latitude != nil {
+                        self.getMarkers(latitude: latitude, longitude: longititude, author: fullName)
+                    }
+                        
+                        
+                        
+
+                }
         }
     }
+    
     
     //called everytime the user location is changed
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -131,39 +170,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             }
             else if(LoginViewController.currentUserDetail as String! == "Tutor"){
                 count = count! + 1
-                print("Inside this function")
-                
-                let query = PFQuery(className: "Post")
-                query.order(byDescending: "createdAt")
-                query.includeKey("author")
-                
-                // fetch data asynchronously
-                query.findObjectsInBackground { (posts: [PFObject]?, error: Error?) -> Void in
-                    if let posts = posts {
-                        print("User posts are : ", posts)
-                    }
-                }
-//                var locationDict = Dictionary<String, String>()
-//                locationDict["latitude"] = MapViewController.latitude!
-//                locationDict["longitute"] = MapViewController.longitude!
-//                ShareViewController.history["location"] = locationDict
+               
                 
                 ShareViewController.latitude = MapViewController.latitude!
                 ShareViewController.longitude = MapViewController.longitude!
                 
-              Tutor.postUserImage( withCompletion: { _ in
-                   
-                print("Completed")
-                
-                
-            
-                
-                
-                DispatchQueue.main.async {
-                        print("POSTED")
-                        
-                    }}
-                )
             }
             
             
@@ -211,20 +222,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                 
                 
         var region = MKCoordinateRegion(center: location, span: span)
-                
-//        var correctAuthor: String!
-//        var slicingIndex: Int!
-//        slicingIndex = 0
-//        correctAuthor = ""
-//        for element in author.characters{
-//            
-//            if slicingIndex >= 6{
-//                
-//                correctAuthor = correctAuthor + String(element)
-//               
-//            }
-//            slicingIndex = slicingIndex + 1
-//        }
         
          mapView.setRegion(region, animated: true)
         
@@ -244,6 +241,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         manager.delegate = self
+        getAllData()
         
         print("Inside the student thing")
         
@@ -255,7 +253,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
 
         }
         else{
-            getData()
+            //getData()
             //getMarkers()
         }
         
