@@ -51,11 +51,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                 self.allElements = random
                 var currentUser = PFUser.current()
             
-                print("The current user data is : ", PFUser.current())
+            
                 var occupation = currentUser?["occupation"]
                 var userName = "\(currentUser?["username"])"
             
-                print("The user name is : ", userName)
+            
                 for element in self.allElements{
                     if "\(element["author"])" == userName{
                         self.objectID = element.objectId
@@ -81,10 +81,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func updateCoordinates(){
+        
         print("Inside this function")
         print("the id is : ", self.objectID)
         if self.objectID != nil{
-            let query = PFQuery(className: "Posts")
+            let query = PFQuery(className: "Post")
             do {
                 let object = try query.getObjectWithId(self.objectID)
                 print("The id is found")
@@ -93,12 +94,42 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                     object["latitude"] = MapViewController.latitude
                     object["longitude"] = MapViewController.longitude
                     object.saveInBackground()
-
+                    
                 }
             } catch {
-                print(error)
+                print("Error while saving the data : ",error.localizedDescription)
             }
         }
+        // If need for asynch. call uncomment this part
+        /*
+            query.getObjectInBackground(withId: self.objectID) { (objects, error) -> Void in
+                print("Id is found")
+                print("Lat is : ", MapViewController.latitude, "Long is : ", MapViewController.longitude)
+                if MapViewController.latitude != nil && MapViewController.longitude != nil{
+                    objects?["latitude"] = MapViewController.latitude
+                    objects?["longitude"] = MapViewController.longitude
+//                    objects?.saveInBackground()
+//                    print("saved")
+//                    print("Lat changed is : ", objects?["latitude"], "Long changed is : ", objects?["longitude"])
+                    objects?.saveInBackground { (saved:Bool, error:Error?) -> Void in
+                        if saved {
+                            print("saved worked")
+                            print("Lat changed is : ", objects?["latitude"], "Long changed is : ", objects?["longitude"])
+                        } else {
+                            print("ERROR happend", error.debugDescription)
+                        }
+                    }
+                    
+                    
+                    
+                }
+                else{
+                    print("Error updating the data")
+                }
+                
+            }
+    */
+            
         
     }
     
@@ -121,6 +152,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                     fullName.append(element["lastName"] as! String)
                     
                     author = element["author"] as! String
+                    
                     
                     
                     
